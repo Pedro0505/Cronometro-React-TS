@@ -2,29 +2,36 @@ import React, { useEffect, useState, useRef } from 'react';
 
 function App() {
   const [time, setTime] = useState<number>(0);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<number | string>('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [inputValue, setInputValue] = useState<string>('');
   const keyInterval = useRef<number>(0);
 
-  function configTimer() {
-    const arrayTime = (inputValue as string).split(':');
+  function configTimer():void {
+    const arrayTime = inputValue.split(':');
     const minute:number = +arrayTime[0] * 60;
     const second:number = +arrayTime[1];
     const sum:number = minute + second;
     if (!Number.isNaN(sum)) setTime(sum);
   }
 
-  function handleStart() {
+  function handleDisableBtn():void {
+    const rgx = /\d[:]\d/gi;
+    if (!rgx.test(inputValue)) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }
+
+  function handleStart():void {
     configTimer();
-    setIsDisabled(true);
     keyInterval.current = setInterval(() => {
       setTime((prevTime:number) => (prevTime <= 0 ? 0 : prevTime - 1));
     }, 1000);
   }
 
-  function handleStop() {
+  function handleStop():void {
     clearInterval(keyInterval.current);
-    setIsDisabled(false);
   }
 
   function handleTimeFormater():string {
@@ -42,10 +49,18 @@ function App() {
     }
   }, [time]);
 
+  useEffect(() => {
+    handleDisableBtn();
+  }, [inputValue]);
+
   return (
     <div>
-      <h1>{handleTimeFormater()}</h1>
-      <input type="text" onChange={ ({ target: { value } }) => setInputValue(value) } />
+      <h1>{ handleTimeFormater() }</h1>
+      <input
+        maxLength={ 5 }
+        type="text"
+        onChange={ ({ target: { value } }) => setInputValue(value) }
+      />
       <button
         type="button"
         onClick={ handleStart }
