@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+      "plugin:react/recommended",
+      "airbnb",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+      "react", 
+      "react-hooks", 
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "import/no-unresolved": "error",
+      "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+      "import/extensions": [0, { "extensions": [".ts", ".tsx"] }],
+      "react/jsx-curly-spacing": [2, "always"],
+      "max-len": ["error", { "code": 90, "ignoreComments": true, "ignoreUrls": true }],
+      "no-console": "off"
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": {}
+      }
+    }
+}
