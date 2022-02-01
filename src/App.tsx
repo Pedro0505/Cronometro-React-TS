@@ -16,7 +16,8 @@ function App() {
 
   function handleDisableBtn():void {
     const rgx = /\d[:]\d/gi;
-    if (!rgx.test(inputValue)) {
+    const arrayTime = inputValue.split(':');
+    if (!rgx.test(inputValue) || +arrayTime[0] > 60 || +arrayTime[1] > 60) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
