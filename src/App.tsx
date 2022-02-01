@@ -17,7 +17,10 @@ function App() {
   function handleDisableBtn():void {
     const rgx = /\d[:]\d/gi;
     const arrayTime = inputValue.split(':');
-    if (!rgx.test(inputValue) || +arrayTime[0] > 60 || +arrayTime[1] > 60) {
+    if (!rgx.test(inputValue)
+    || +arrayTime[0] > 60
+    || +arrayTime[1] > 60
+    || arrayTime[1].length < 2) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -26,12 +29,14 @@ function App() {
 
   function handleStart():void {
     configTimer();
+    setIsDisabled(true);
     keyInterval.current = setInterval(() => {
       setTime((prevTime:number) => (prevTime <= 0 ? 0 : prevTime - 1));
     }, 1000);
   }
 
   function handleStop():void {
+    setIsDisabled(false);
     clearInterval(keyInterval.current);
   }
 
