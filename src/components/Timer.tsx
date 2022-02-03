@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import '../style/style.css';
 
 function Timer() {
   const [time, setTime] = useState<number>(0);
@@ -15,10 +16,13 @@ function Timer() {
   }
 
   function handleDisableBtn():void {
-    const rgx = /\d[:]\d/gi;
+    const rgxTime = /\d[:]\d/gi;
     const rgxLetter = /[A-zÀ-ú]/gi;
+    const arrayRepet = inputValue.split('');
+    const fillterDif = arrayRepet.filter((e) => e === ':');
     const arrayTime = inputValue.split(':');
-    if (!rgx.test(inputValue)
+    if (!rgxTime.test(inputValue)
+    || fillterDif.length > 1
     || rgxLetter.test(inputValue)
     || inputValue.length < 5
     || +arrayTime[0] > 60
