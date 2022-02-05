@@ -4,9 +4,7 @@ import './style/style.scss';
 
 function App() {
   return (
-    <div>
-      <Timer />
-    </div>
+    <Timer />
   );
 }
 

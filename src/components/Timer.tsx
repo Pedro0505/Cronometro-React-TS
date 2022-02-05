@@ -77,32 +77,39 @@ function Timer() {
   }, [inputValue]);
 
   return (
-    <div>
-      <h1>{ handleTimeFormater() }</h1>
-      <input
-        type="text"
-        onChange={ ({ target: { value } }) => setInputValue(value) }
-        placeholder="00:00"
-      />
-      <button
-        type="button"
-        onClick={ handleStart }
-        disabled={ isDisabled }
-      >
-        Iniciar
-        <AlarmOnIcon />
-      </button>
-      <button
-        type="button"
-        onClick={ handleStop }
-      >
-        Parar
-        <AlarmOff />
-      </button>
+    <div className="main">
+      <h1 className="title">Timer</h1>
+      <h1 className="time">{ handleTimeFormater() }</h1>
       <ProgressBar
+        variant="warning"
         className="progress"
         now={ handleProgress() }
       />
+      <div className="container-btn-input">
+        <input
+          className="input"
+          type="text"
+          onChange={ ({ target: { value } }) => setInputValue(value) }
+          placeholder="00:00"
+        />
+        <button
+          className="btn"
+          type="button"
+          onClick={ handleStart }
+          disabled={ isDisabled }
+        >
+          Iniciar
+          <AlarmOnIcon style={ { marginLeft: '5px' } } />
+        </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={ handleStop }
+        >
+          Parar
+          <AlarmOff style={ { marginLeft: '5px' } } />
+        </button>
+      </div>
     </div>
   );
 }
