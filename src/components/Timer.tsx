@@ -41,6 +41,7 @@ function Timer() {
 
   function handleStart():void {
     configTimer();
+    setInputValue('');
     setStopBtnDisabled(false);
     setIsDisabled(true);
     keyInterval.current = setInterval(() => {
@@ -49,7 +50,6 @@ function Timer() {
   }
 
   function handleStop():void {
-    setIsDisabled(false);
     setStopBtnDisabled(true);
     clearInterval(keyInterval.current);
   }
@@ -92,6 +92,7 @@ function Timer() {
         <input
           className="input"
           type="text"
+          value={ inputValue }
           onChange={ ({ target: { value } }) => setInputValue(value) }
           placeholder="00:00"
         />
