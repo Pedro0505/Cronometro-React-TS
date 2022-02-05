@@ -65,7 +65,10 @@ function Timer() {
 
   function handleProgress() {
     const percentage = 100 - ((+time * 100) / +now);
-    const result = Number.isNaN(percentage) ? 0 : percentage;
+    let result = Number.isNaN(percentage) ? 0 : percentage;
+    if (time === 0) {
+      result = 0;
+    }
     return result;
   }
 
