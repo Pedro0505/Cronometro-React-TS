@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import '../style/style.css';
+import { ProgressBar } from 'react-bootstrap';
+import AlarmOnIcon from '@material-ui/icons/AlarmAdd';
+import AlarmOff from '@material-ui/icons/AlarmOff';
 
 function Timer() {
   const [time, setTime] = useState<number>(0);
+  const [now, setNow] = useState<number>(0);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [inputValue, setInputValue] = useState<string>('');
   const keyInterval = useRef<number>(0);
@@ -13,6 +16,7 @@ function Timer() {
     const second:number = +arrayTime[1];
     const sum:number = minute + second;
     if (!Number.isNaN(sum)) setTime(sum);
+    setNow(sum);
   }
 
   function handleDisableBtn():void {
@@ -56,6 +60,12 @@ function Timer() {
     return `${minute}:${second}`;
   }
 
+  function handleProgress() {
+    const percentage = 100 - ((+time * 100) / +now);
+    const result = Number.isNaN(percentage) ? 0 : percentage;
+    return result;
+  }
+
   useEffect(() => {
     if (time === 0) {
       handleStop();
@@ -67,26 +77,39 @@ function Timer() {
   }, [inputValue]);
 
   return (
-    <div>
-      <h1>{ handleTimeFormater() }</h1>
-      <input
-        type="text"
-        onChange={ ({ target: { value } }) => setInputValue(value) }
-        placeholder="00:00"
+    <div className="main">
+      <h1 className="title">Timer</h1>
+      <h1 className="time">{ handleTimeFormater() }</h1>
+      <ProgressBar
+        variant="warning"
+        className="progress"
+        now={ handleProgress() }
       />
-      <button
-        type="button"
-        onClick={ handleStart }
-        disabled={ isDisabled }
-      >
-        Iniciar
-      </button>
-      <button
-        type="button"
-        onClick={ handleStop }
-      >
-        Parar
-      </button>
+      <div className="container-btn-input">
+        <input
+          className="input"
+          type="text"
+          onChange={ ({ target: { value } }) => setInputValue(value) }
+          placeholder="00:00"
+        />
+        <button
+          className="btn"
+          type="button"
+          onClick={ handleStart }
+          disabled={ isDisabled }
+        >
+          Iniciar
+          <AlarmOnIcon style={ { marginLeft: '5px' } } />
+        </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={ handleStop }
+        >
+          Parar
+          <AlarmOff style={ { marginLeft: '5px' } } />
+        </button>
+      </div>
     </div>
   );
 }

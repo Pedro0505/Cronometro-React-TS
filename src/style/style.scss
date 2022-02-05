@@ -1,5 +1,56 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+$primary-color: #fff;
+$secondary-color: black;
+$background-color: #14213D;
+$btn-color: #FCA311;
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-color: $background-color;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+
+  .title, .time {
+    color: $primary-color;
+  }
+
+  .title {
+    font-size: 4em;
+  }
+
+  .time {
+    font-size: 10em;
+  }
+  
+  .progress {
+    width: 500px;
+    margin: 50px 0;
+  }
+
+  .input {
+    width: 307px;
+  }
+
+  .btn {
+    background-color: $btn-color;
+    color: $secondary-color;
+    border-radius: 0;
+  }
+
+  .container-btn-input {
+    display: flex;
+    width: 500px;
+  }
 }
