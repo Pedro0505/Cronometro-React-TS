@@ -19,15 +19,24 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100vh;
+  justify-content: center;
 
   .title, .time {
     color: $primary-color;
   }
+
+  .title {
+    font-size: 4em;
+  }
+
+  .time {
+    font-size: 10em;
+  }
   
   .progress {
     width: 500px;
+    margin: 50px 0;
   }
 
   .input {
