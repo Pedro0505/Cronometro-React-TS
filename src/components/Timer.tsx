@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { ProgressBar } from 'react-bootstrap';
+import AlarmOnIcon from '@material-ui/icons/AlarmAdd';
+import AlarmOff from '@material-ui/icons/AlarmOff';
 
 function Timer() {
   const [time, setTime] = useState<number>(0);
+  const [now, setNow] = useState<number>(0);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [inputValue, setInputValue] = useState<string>('');
   const keyInterval = useRef<number>(0);
@@ -12,6 +16,7 @@ function Timer() {
     const second:number = +arrayTime[1];
     const sum:number = minute + second;
     if (!Number.isNaN(sum)) setTime(sum);
+    setNow(sum);
   }
 
   function handleDisableBtn():void {
@@ -55,6 +60,12 @@ function Timer() {
     return `${minute}:${second}`;
   }
 
+  function handleProgress() {
+    const percentage = 100 - ((+time * 100) / +now);
+    const result = Number.isNaN(percentage) ? 0 : percentage;
+    return result;
+  }
+
   useEffect(() => {
     if (time === 0) {
       handleStop();
@@ -79,13 +90,19 @@ function Timer() {
         disabled={ isDisabled }
       >
         Iniciar
+        <AlarmOnIcon />
       </button>
       <button
         type="button"
         onClick={ handleStop }
       >
         Parar
+        <AlarmOff />
       </button>
+      <ProgressBar
+        className="progress"
+        now={ handleProgress() }
+      />
     </div>
   );
 }
