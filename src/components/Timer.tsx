@@ -7,6 +7,7 @@ function Timer() {
   const [time, setTime] = useState<number>(0);
   const [now, setNow] = useState<number>(0);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [stopBtnDisabled, setStopBtnDisabled] = useState<boolean>(true);
   const [inputValue, setInputValue] = useState<string>('');
   const keyInterval = useRef<number>(0);
 
@@ -40,6 +41,7 @@ function Timer() {
 
   function handleStart():void {
     configTimer();
+    setStopBtnDisabled(false);
     setIsDisabled(true);
     keyInterval.current = setInterval(() => {
       setTime((prevTime:number) => (prevTime <= 0 ? 0 : prevTime - 1));
@@ -48,6 +50,7 @@ function Timer() {
 
   function handleStop():void {
     setIsDisabled(false);
+    setStopBtnDisabled(true);
     clearInterval(keyInterval.current);
   }
 
@@ -104,6 +107,7 @@ function Timer() {
         <button
           className="btn"
           type="button"
+          disabled={ stopBtnDisabled }
           onClick={ handleStop }
         >
           Parar
