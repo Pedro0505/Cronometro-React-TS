@@ -95,6 +95,7 @@ function Timer() {
       handleStop();
       handleEndTime();
     }
+    document.title = `Cronômetro ${handleTimeFormater()}`;
   }, [time]);
 
   useEffect(() => {
