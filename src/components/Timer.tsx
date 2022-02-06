@@ -106,7 +106,10 @@ function Timer() {
       {
         endTime && (
           <div className="overlay">
-            <img src="src/image/relogio.png" alt="Relogio" />
+            <img
+              src="https://github.com/Pedro0505/Cronometro-React-TS/blob/main/src/image/relogio.png?raw=true"
+              alt="Relogio"
+            />
           </div>
         )
       }
