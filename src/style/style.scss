@@ -38,6 +38,7 @@ body {
 
       img {
         width: 210px;
+        animation: rotateImage 1000ms ease-in-out infinite;
       }
   }
 
@@ -70,5 +71,27 @@ body {
   .container-btn-input {
     display: flex;
     width: 500px;
+  }
+}
+
+@keyframes rotateImage {
+  0% {
+    transform: rotate(10deg);
+  }
+
+  25% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    transform: rotate(10deg);
   }
 }
