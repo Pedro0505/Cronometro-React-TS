@@ -2,14 +2,18 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import AlarmOnIcon from '@material-ui/icons/AlarmAdd';
 import AlarmOff from '@material-ui/icons/AlarmOff';
+import song from '../static/alarm.mp3';
 
 function Timer() {
   const [time, setTime] = useState<number>(0);
   const [now, setNow] = useState<number>(0);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [stopBtnDisabled, setStopBtnDisabled] = useState<boolean>(true);
+  const [endTime, setEndTime] = useState<boolean>(false);
+  const [startTime, setStartTime] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const keyInterval = useRef<number>(0);
+  const newSong = new Audio(song);
 
   function configTimer():void {
     const arrayTime = inputValue.split(':');
@@ -44,6 +48,7 @@ function Timer() {
     setInputValue('');
     setStopBtnDisabled(false);
     setIsDisabled(true);
+    setStartTime(true);
     keyInterval.current = setInterval(() => {
       setTime((prevTime:number) => (prevTime <= 0 ? 0 : prevTime - 1));
     }, 1000);
@@ -51,6 +56,8 @@ function Timer() {
 
   function handleStop():void {
     setStopBtnDisabled(true);
+    setStartTime(false);
+    setTime(0);
     clearInterval(keyInterval.current);
   }
 
@@ -63,7 +70,7 @@ function Timer() {
     return `${minute}:${second}`;
   }
 
-  function handleProgress() {
+  function handleProgress():number {
     const percentage = 100 - ((+time * 100) / +now);
     let result = Number.isNaN(percentage) ? 0 : percentage;
     if (time === 0) {
@@ -72,9 +79,21 @@ function Timer() {
     return result;
   }
 
+  function handleEndTime() {
+    if (startTime) {
+      setEndTime(true);
+      newSong.play();
+      setInterval(() => {
+        setEndTime(false);
+        newSong.pause();
+      }, 5000);
+    }
+  }
+
   useEffect(() => {
     if (time === 0) {
       handleStop();
+      handleEndTime();
     }
   }, [time]);
 
@@ -84,6 +103,13 @@ function Timer() {
 
   return (
     <div className="main">
+      {
+        endTime && (
+          <div className="overlay">
+            <img src="src/image/relogio.png" alt="Relogio" />
+          </div>
+        )
+      }
       <h1 className="title">Timer</h1>
       <h1 className="time">{ handleTimeFormater() }</h1>
       <ProgressBar
