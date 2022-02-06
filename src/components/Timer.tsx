@@ -36,6 +36,7 @@ function Timer() {
     || inputValue.length < 5
     || +arrayTime[0] > 60
     || +arrayTime[1] > 60
+    || (+arrayTime[0] === 0 && +arrayTime[1] === 0)
     || arrayTime[1].length < 2) {
       setIsDisabled(true);
     } else {
