@@ -37,7 +37,8 @@ function Timer() {
     || +arrayTime[0] > 60
     || +arrayTime[1] > 60
     || (+arrayTime[0] === 0 && +arrayTime[1] === 0)
-    || arrayTime[1].length < 2) {
+    || arrayTime[1].length < 2
+    || arrayTime[0].length < 2) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -85,8 +86,8 @@ function Timer() {
       setEndTime(true);
       newSong.play();
       setInterval(() => {
-        setEndTime(false);
         newSong.pause();
+        setEndTime(false);
       }, 5000);
     }
   }
