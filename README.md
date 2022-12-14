@@ -6,6 +6,8 @@ Um cronômetro feito com React com a template de typescript usando o
 
 <br />
 
+![](https://github.com/Pedro0505/my-portfolio/blob/main/src/images/timer.gif?raw=true)
+
 # Como instalar
 
 Clone o projeto
